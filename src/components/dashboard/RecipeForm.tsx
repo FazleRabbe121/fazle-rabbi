@@ -6,7 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { RECIPE_UNITS } from "@/lib/measure";
+import { DrinkPicture } from "@/components/recipes/DrinkPicture";
+import { liquidColor } from "@/lib/drink";
+
+const FORM_UNITS = ["ml", "oz", "cl", "dash", "tsp", "tbsp", "g", "piece"] as const;
+const GLASSES = ["Highball", "Collins", "Rocks", "Margarita", "Coupe", "Martini", "Flute", "Hurricane", "Wine glass", "Copper mug", "Shot", "Irish coffee mug"];
+const ICE = ["Cubed", "Crushed", "Large cube", "Sphere", "No ice"];
+const GARNISHES = ["None", "Lime wheel", "Lemon wheel", "Orange slice", "Cherry", "Mint sprig", "Olive", "Pineapple wedge", "Salt rim", "Sugar rim", "Cinnamon stick", "Coffee beans", "Umbrella", "Whipped cream"];
+const toHex = (c: string) => { if (c.startsWith("#")) return c; const m = c.match(/\d+/g); return m ? "#" + m.slice(0, 3).map((n) => Number(n).toString(16).padStart(2, "0")).join("") : "#c9a86a"; };
 import { DIFFICULTIES, TECHNIQUES, emptyRecipe, recipeInputSchema, uploadRecipeImage, type Category, type RecipeInput } from "@/lib/recipes";
 import { Field, num, selectCls } from "./fields";
 
@@ -55,11 +62,19 @@ export function RecipeForm({ open, onOpenChange, initial, categories, imageUrl, 
         </DialogHeader>
         <form onSubmit={submit} className="space-y-6">
           <div className="grid gap-4 sm:grid-cols-[160px_1fr]">
-            <label className="relative grid aspect-[4/5] cursor-pointer place-items-center overflow-hidden rounded-sm border border-dashed border-primary/40 bg-muted text-muted-foreground hover:border-primary">
-              {preview ? <img src={preview} alt="Recipe preview" className="absolute inset-0 h-full w-full object-cover" /> : <span className="flex flex-col items-center gap-2 text-xs"><ImagePlus />Add photo</span>}
+            <div className="space-y-3">
+            <div className="grid aspect-[4/5] place-items-center rounded-sm border border-primary/30 bg-muted p-2 text-primary"><DrinkPicture recipe={v} className="h-full w-auto" /></div>
+            <div className="flex items-center gap-2 text-xs">
+              <input id="rcolor" type="color" aria-label="Drink colour" className="h-7 w-9 cursor-pointer border border-border bg-transparent" value={v.drink_color ?? toHex(liquidColor(v.ingredients))} onChange={(e) => set("drink_color", e.target.value)} />
+              <label htmlFor="rcolor" className="text-muted-foreground">{v.drink_color ? "Custom colour" : "Auto colour"}</label>
+              {v.drink_color && <button type="button" className="underline hover:text-primary" onClick={() => set("drink_color", null)}>Auto</button>}
+            </div>
+            <label className="relative grid aspect-[4/3] cursor-pointer place-items-center overflow-hidden rounded-sm border border-dashed border-primary/40 bg-muted text-muted-foreground hover:border-primary">
+              {preview ? <img src={preview} alt="Recipe preview" className="absolute inset-0 h-full w-full object-cover" /> : <span className="flex flex-col items-center gap-2 text-xs"><ImagePlus />Add photo (optional)</span>}
               {uploading && <span className="absolute inset-0 grid place-items-center bg-ink/70"><Loader2 className="animate-spin text-primary" /></span>}
               <input type="file" accept="image/*" className="sr-only" onChange={(e) => onImage(e.target.files?.[0])} aria-label="Upload recipe image" />
             </label>
+            </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Cocktail name *" htmlFor="rname" className="sm:col-span-2"><Input id="rname" value={v.name} onChange={(e) => set("name", e.target.value)} maxLength={160} /></Field>
               <Field label="Category" htmlFor="rcat"><select id="rcat" className={selectCls} value={v.category_id ?? ""} onChange={(e) => set("category_id", e.target.value || null)}>
@@ -74,12 +89,13 @@ export function RecipeForm({ open, onOpenChange, initial, categories, imageUrl, 
 
           <fieldset className="space-y-2">
             <legend className="eyebrow mb-2">Ingredients</legend>
+            <div aria-hidden className="hidden gap-2 text-[0.65rem] uppercase tracking-widest text-muted-foreground sm:grid sm:grid-cols-[2fr_90px_110px_1.3fr_40px]"><span>Ingredient name</span><span>Quantity</span><span>Unit</span><span>Note</span><span /></div>
             {ing.map((i, n) => (
               <div key={n} className="grid grid-cols-[1fr_80px_100px_auto] gap-2 sm:grid-cols-[2fr_90px_110px_1.3fr_auto]">
                 <Input aria-label={`Ingredient ${n + 1} name`} placeholder="Ingredient" value={i.name} onChange={(e) => set("ingredients", ing.map((x, k) => k === n ? { ...x, name: e.target.value } : x))} />
-                <Input aria-label="Amount" type="number" step="any" min={0} placeholder="Amt" value={i.amount ?? ""} onChange={(e) => set("ingredients", ing.map((x, k) => k === n ? { ...x, amount: num(e.target.value) } : x))} />
+                <Input aria-label="Amount" type="number" step="any" min={0} placeholder="Qty" value={i.amount ?? ""} onChange={(e) => set("ingredients", ing.map((x, k) => k === n ? { ...x, amount: num(e.target.value) } : x))} />
                 <select aria-label="Unit" className={selectCls} value={i.unit} onChange={(e) => set("ingredients", ing.map((x, k) => k === n ? { ...x, unit: e.target.value as typeof i.unit } : x))}>
-                  {RECIPE_UNITS.map((u) => <option key={u}>{u}</option>)}</select>
+                  {(FORM_UNITS as readonly string[]).includes(i.unit) ? null : <option>{i.unit}</option>}{FORM_UNITS.map((u) => <option key={u}>{u}</option>)}</select>
                 <Input aria-label="Note" placeholder="Note (optional)" className="col-span-3 sm:col-span-1" value={i.note ?? ""} onChange={(e) => set("ingredients", ing.map((x, k) => k === n ? { ...x, note: e.target.value } : x))} />
                 <Button type="button" variant="ghost" size="icon" aria-label="Remove ingredient" onClick={() => set("ingredients", ing.filter((_, k) => k !== n))}><Trash2 /></Button>
               </div>
@@ -88,7 +104,7 @@ export function RecipeForm({ open, onOpenChange, initial, categories, imageUrl, 
           </fieldset>
 
           <fieldset className="space-y-2">
-            <legend className="eyebrow mb-2">Preparation method</legend>
+            <legend className="eyebrow mb-2">Method</legend>
             {v.steps.map((s, n) => (
               <div key={n} className="flex gap-2">
                 <span className="mt-2 w-6 font-display text-sm text-primary">{n + 1}.</span>
@@ -100,17 +116,22 @@ export function RecipeForm({ open, onOpenChange, initial, categories, imageUrl, 
           </fieldset>
 
           <div className="grid gap-4 sm:grid-cols-3">
-            <Field label="Glassware" htmlFor="rglass"><Input id="rglass" value={v.glassware ?? ""} onChange={(e) => set("glassware", e.target.value)} placeholder="Coupe" /></Field>
-            <Field label="Ice type" htmlFor="rice"><Input id="rice" value={v.ice_type ?? ""} onChange={(e) => set("ice_type", e.target.value)} placeholder="Clear block" /></Field>
-            <Field label="Garnish" htmlFor="rgarn"><Input id="rgarn" value={v.garnish ?? ""} onChange={(e) => set("garnish", e.target.value)} placeholder="Lemon twist" /></Field>
-            <Field label="Prep time (min)" htmlFor="rprep"><Input id="rprep" type="number" min={0} value={v.prep_time_minutes ?? ""} onChange={(e) => set("prep_time_minutes", num(e.target.value) == null ? null : Math.round(num(e.target.value)!))} /></Field>
+            <Field label="Glassware" htmlFor="rglass"><Input id="rglass" list="glass-list" value={v.glassware ?? ""} onChange={(e) => set("glassware", e.target.value)} placeholder="Choose or type" /></Field>
+            <datalist id="glass-list">{GLASSES.map((g) => <option key={g} value={g} />)}</datalist>
+            <Field label="Ice type" htmlFor="rice"><select id="rice" className={selectCls} value={v.ice_type ?? ""} onChange={(e) => set("ice_type", e.target.value || null)}>
+              <option value="">—</option>{v.ice_type && !ICE.includes(v.ice_type) && <option>{v.ice_type}</option>}{ICE.map((i) => <option key={i}>{i}</option>)}</select></Field>
+            <Field label="Garnish" htmlFor="rgarn"><Input id="rgarn" list="garnish-list" value={v.garnish ?? ""} onChange={(e) => set("garnish", e.target.value)} placeholder="Choose or type" /></Field>
+            <datalist id="garnish-list">{GARNISHES.map((g) => <option key={g} value={g} />)}</datalist>
+            <Field label="Prep time (minutes)" htmlFor="rprep"><Input id="rprep" type="number" min={0} value={v.prep_time_minutes ?? ""} onChange={(e) => set("prep_time_minutes", num(e.target.value) == null ? null : Math.round(num(e.target.value)!))} /></Field>
             <Field label="ABV % (optional)" htmlFor="rabv"><Input id="rabv" type="number" min={0} max={100} step="0.1" value={v.abv ?? ""} onChange={(e) => set("abv", num(e.target.value))} /></Field>
             <div className="flex items-end gap-3 pb-1"><Switch id="rfav" checked={v.is_favorite} onCheckedChange={(c) => set("is_favorite", c)} /><label htmlFor="rfav" className="text-sm">Favourite</label></div>
             <Field label="Cost per serving (optional)" htmlFor="rcost"><Input id="rcost" type="number" min={0} step="0.01" value={v.cost_per_serving ?? ""} onChange={(e) => set("cost_per_serving", num(e.target.value))} /></Field>
             <Field label="Selling price (optional)" htmlFor="rprice"><Input id="rprice" type="number" min={0} step="0.01" value={v.selling_price ?? ""} onChange={(e) => set("selling_price", num(e.target.value))} /></Field>
+            <div className="flex flex-col justify-end pb-1 text-sm"><span className="text-xs uppercase tracking-[0.15em] text-muted-foreground">Margin</span>
+              <output htmlFor="rcost rprice" aria-live="polite" className="font-display text-lg text-primary">{v.selling_price && v.cost_per_serving != null ? `${(((v.selling_price - v.cost_per_serving) / v.selling_price) * 100).toFixed(1)}%` : "—"}</output></div>
           </div>
 
-          <Field label="Flavour profile" htmlFor="rtag">
+          <Field label="Flavor profile" htmlFor="rtag">
             <div className="flex flex-wrap gap-2">
               {v.flavor_tags.map((t) => (
                 <span key={t} className="inline-flex items-center gap-1 rounded-sm border border-primary/40 px-2 py-1 text-xs text-gold-soft">{t}

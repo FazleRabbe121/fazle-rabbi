@@ -75,6 +75,7 @@ export type Database = {
           cost_per_serving: number | null
           created_at: string
           difficulty: string
+          drink_color: string | null
           flavor_tags: string[]
           garnish: string | null
           glassware: string | null
@@ -99,6 +100,7 @@ export type Database = {
           cost_per_serving?: number | null
           created_at?: string
           difficulty?: string
+          drink_color?: string | null
           flavor_tags?: string[]
           garnish?: string | null
           glassware?: string | null
@@ -123,6 +125,7 @@ export type Database = {
           cost_per_serving?: number | null
           created_at?: string
           difficulty?: string
+          drink_color?: string | null
           flavor_tags?: string[]
           garnish?: string | null
           glassware?: string | null

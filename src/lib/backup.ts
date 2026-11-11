@@ -2,6 +2,7 @@ import { z } from "zod";
 import { jsPDF } from "jspdf";
 import { recipeInputSchema, type Recipe, type Category, type RecipeInput, toInput } from "./recipes";
 import { formatAmount } from "./measure";
+import { drinkPictureDataUrl } from "@/components/recipes/DrinkPicture";
 
 function download(name: string, content: BlobPart, type: string) {
   const url = URL.createObjectURL(new Blob([content], { type }));
@@ -66,19 +67,24 @@ export async function exportRecipePDF(r: Recipe, categoryName: string | null, im
   y += 18; doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(...gold);
   doc.text([categoryName, r.technique, r.difficulty, r.glassware].filter(Boolean).join("  ·  ").toUpperCase(), 50, y);
   y += 14; doc.setLineWidth(0.5); doc.line(50, y, W - 50, y); y += 20;
-  if (imageUrl) { const d = await toDataUrl(imageUrl); if (d) { const iw = 180, ih = 225; doc.addImage(d, "JPEG", W - 50 - iw, y, iw, ih); } }
-  const colW = imageUrl ? W - 300 : W - 100;
+  const iw = 180, ih = 225;
+  const photo = imageUrl ? await toDataUrl(imageUrl) : null;
+  const pic = await drinkPictureDataUrl(r);
+  if (photo) doc.addImage(photo, "JPEG", W - 50 - iw, y, iw, ih);
+  else if (pic) doc.addImage(pic, "PNG", W - 50 - iw, y, iw, iw * 1.2);
+  const colW = W - 300;
   const ensure = (h: number) => { if (y + h > H - 50) { doc.addPage(); page(); y = 60; } };
   const section = (t: string) => { ensure(30); doc.setFont("helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(...gold); doc.text(t.toUpperCase(), 50, y); y += 16; doc.setFont("helvetica", "normal"); doc.setFontSize(11); doc.setTextColor(235, 228, 210); };
   section(`Ingredients — serves ${formatAmount(Number(r.servings))}`);
   r.ingredients.forEach((i) => { const lines = doc.splitTextToSize(`${formatAmount(i.amount)} ${i.unit}  ${i.name}${i.note ? ` — ${i.note}` : ""}`, colW); ensure(lines.length * 14); doc.text(lines, 56, y); y += lines.length * 14 + 2; });
-  y = Math.max(y + 10, imageUrl ? 360 : y + 10);
+  y = Math.max(y + 10, 360);
   section("Method");
   r.steps.forEach((s, n) => { const lines = doc.splitTextToSize(`${n + 1}. ${s}`, W - 110); ensure(lines.length * 14); doc.text(lines, 56, y); y += lines.length * 14 + 4; });
   y += 8; section("Details");
   [["Ice", r.ice_type], ["Garnish", r.garnish], ["Prep time", r.prep_time_minutes != null ? `${r.prep_time_minutes} min` : null], ["ABV", r.abv != null ? `${r.abv}%` : null],
     ["Flavour", r.flavor_tags.join(", ")], ["Cost / serving", r.cost_per_serving != null ? String(r.cost_per_serving) : null], ["Selling price", r.selling_price != null ? String(r.selling_price) : null]]
     .filter(([, v]) => v).forEach(([k, v]) => { ensure(14); doc.text(`${k}: ${v}`, 56, y); y += 14; });
+  if (photo && pic) { ensure(170); doc.addImage(pic, "PNG", W - 50 - 120, y, 120, 144); y += 150; }
   if (r.notes) { y += 8; section("Notes"); const l = doc.splitTextToSize(r.notes, W - 110); l.forEach((line: string) => { ensure(14); doc.text(line, 56, y); y += 14; }); }
   doc.setFontSize(8); doc.setTextColor(...gold); doc.text(`Private recipe · ${new Date().toLocaleDateString()}`, 50, H - 32);
   doc.save(`${r.name.replace(/[^a-z0-9]+/gi, "-").toLowerCase()}.pdf`);

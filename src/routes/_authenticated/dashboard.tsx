@@ -1,8 +1,10 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
+import { isUnlocked } from "@/lib/passcode";
+import { DrinkPicture } from "@/components/recipes/DrinkPicture";
 import { useMemo, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Download, Heart, Loader2, LogOut, Plus, Search, ShieldCheck, Upload, Wine } from "lucide-react";
+import { Download, Heart, Loader2, LogOut, Plus, Search, Upload, Wine } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,6 +29,7 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
+  beforeLoad: () => { if (!isUnlocked()) throw redirect({ to: "/unlock" }); },
   component: DashboardPage,
 });
 
@@ -37,43 +40,7 @@ function useSignOut() {
 
 function DashboardPage() {
   const { user } = Route.useRouteContext();
-  const role = useQuery({
-    queryKey: ["is-admin", user.id],
-    queryFn: async () => {
-      const { data, error } = await supabase.rpc("has_role", { _user_id: user.id, _role: "admin" });
-      if (error) throw error;
-      if (data) return { admin: true, adminExists: true };
-      const ex = await supabase.rpc("admin_exists");
-      return { admin: false, adminExists: !!ex.data };
-    },
-  });
   const signOut = useSignOut();
-  const qc = useQueryClient();
-
-  if (role.isLoading) return <Center><Loader2 className="animate-spin text-primary" /></Center>;
-  if (role.error) return <Center><p className="text-destructive">Couldn't verify access. <button className="underline" onClick={() => role.refetch()}>Retry</button></p></Center>;
-  if (!role.data?.admin) {
-    return (
-      <Center>
-        <div className="max-w-md border border-border bg-card p-8 text-center">
-          <ShieldCheck className="mx-auto h-10 w-10 text-primary" />
-          {role.data?.adminExists ? (<>
-            <h1 className="mt-4 text-xl uppercase tracking-[0.15em]">Access restricted</h1>
-            <p className="mt-2 text-sm text-muted-foreground">This dashboard is limited to the site owner. {user.email} is not authorised.</p>
-          </>) : (<>
-            <h1 className="mt-4 text-xl uppercase tracking-[0.15em]">One-time owner setup</h1>
-            <p className="mt-2 text-sm text-muted-foreground">No owner exists yet. Claim owner access for <strong>{user.email}</strong>. After this, no other account can become owner.</p>
-            <Button variant="gold" className="mt-6" onClick={async () => {
-              const { data, error } = await supabase.rpc("claim_admin");
-              if (error || !data) { toast.error(error?.message ?? "Owner access was already claimed"); return; }
-              toast.success("You are now the owner"); qc.invalidateQueries({ queryKey: ["is-admin"] });
-            }}>Claim owner access</Button>
-          </>)}
-          <Button variant="ghostGold" className="mt-4 w-full" onClick={signOut}><LogOut />Sign out</Button>
-        </div>
-      </Center>
-    );
-  }
   return <Dashboard email={user.email ?? ""} onSignOut={signOut} />;
 }
 
@@ -204,7 +171,7 @@ function Dashboard({ email, onSignOut }: { email: string; onSignOut: () => void 
                 {filtered.map((r) => (
                   <li key={r.id} className="group relative overflow-hidden border border-border bg-card transition-colors hover:border-primary/60">
                     <button className="block w-full text-left" onClick={() => setViewId(r.id)} aria-label={`Open ${r.name}`}>
-                      <div className="aspect-[4/3] bg-muted">{r.image_path && urls[r.image_path] ? <img src={urls[r.image_path]} alt="" loading="lazy" className="h-full w-full object-cover" /> : <div className="grid h-full place-items-center text-primary/40"><Wine className="h-10 w-10" /></div>}</div>
+                      <div className="relative aspect-[4/3] bg-muted">{r.image_path && urls[r.image_path] ? <><img src={urls[r.image_path]} alt="" loading="lazy" className="h-full w-full object-cover" /><span className="absolute bottom-2 left-2 rounded-sm bg-background/80 p-1 text-primary backdrop-blur"><DrinkPicture recipe={r} className="h-14 w-12" /></span></> : <div className="grid h-full place-items-center p-3 text-primary"><DrinkPicture recipe={r} className="h-full w-auto" /></div>}</div>
                       <div className="p-4">
                         <p className="eyebrow truncate">{catName(r.category_id) ?? "Uncategorised"}</p>
                         <h3 className="mt-1 truncate text-base uppercase tracking-[0.08em]">{r.name}</h3>

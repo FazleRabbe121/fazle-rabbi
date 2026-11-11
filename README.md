@@ -4,7 +4,7 @@ Public portfolio for a professional Bartender, Barista and Mixologist, plus an o
 
 - **Stack:** TanStack Start (React 19 + TypeScript), Tailwind CSS v4, Lovable Cloud (Postgres, Auth, Storage).
 - **Public:** `/` (all portfolio sections), `/login`, `/reset-password`.
-- **Private:** `/dashboard` — admin only, enforced by Row Level Security in the database (not just the UI).
+- **Private:** `/dashboard` — the private recipe book. A 4-digit passcode screen opens first, then sign in / create account. Every account sees only its own recipes (Row Level Security).
 
 ## Local setup
 
@@ -30,10 +30,10 @@ No secret keys are used in the frontend. All access control lives in the databas
 
 Database tables, roles, policies and the private `recipe-images` bucket are already created by the migration in `drizzle/migrations`.
 
-1. **Public sign-up is disabled** (both in the UI and in the auth settings). Accounts can only be created by the owner.
-2. **Create the owner account:** in Lovable open **Cloud → Users → Add user → Create new user** and enter your email and password.
-3. **Become admin:** open `/login`, sign in, and on `/dashboard` press **Claim owner access**. This calls the `claim_admin()` database function, which only works while no admin exists. After that, no other account can ever claim admin, and only admins can read/write recipes, categories, contact messages and recipe images.
-4. **Redirect URLs (password reset):** in **Cloud → Users → Auth settings → URL configuration** add your live URLs, e.g. `https://your-domain.com/reset-password` and `https://<user>.github.io/<repo>/reset-password`.
+1. **Passcode gate:** `/dashboard` (the "Recipes" menu link) first shows *Private Recipe Book* and asks for the 4-digit passcode. Only the SHA-256 hash of `frabbi:<code>` is in the code (`src/lib/passcode.ts`). The unlock lasts for the browser tab session (sessionStorage). To change the code, put the new hash in `PASSCODE_HASH`. This is a convenience gate only — a 4-digit hash can be guessed by anyone who reads the code; real protection is the login and database rules below.
+2. **Sign-up is open:** `/login` has *Sign in* and *Create account* tabs plus *Forgot password*. New accounts confirm their email before signing in. Add your site URL (and `https://<user>.github.io/<repo>/`) to the auth redirect URLs.
+3. **Per-account recipes:** each recipe row has `user_id` (default `auth.uid()`); RLS allows select/insert/update/delete only on your own rows. Images live in the private `recipe-images` bucket under a folder named with your user id, and RLS only allows your own folder. Categories are readable by any signed-in user. Contact messages stay admin-only (`user_roles` + `has_role`).
+4. **Drink pictures:** `src/components/recipes/DrinkPicture.tsx` draws each drink as SVG from glassware, ice, garnish and ingredients (rules in `src/lib/drink.ts`) — no AI or external service. It appears in the form, cards, detail, print and PDF. Pick a colour in the form to override the automatic one.
 
 Security model: roles are stored in `user_roles` (never on a profile), checked through the security-definer function `has_role(uid, 'admin')`. `contact_messages` allows public insert only (no public read), with a database trigger that rate-limits submissions; the form also has a honeypot field, a minimum fill time and a per-browser cooldown.
 

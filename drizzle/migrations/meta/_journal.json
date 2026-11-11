@@ -8,6 +8,13 @@
       "when": 1794436397987,
       "tag": "0000_fr_core_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794439678731,
+      "tag": "0001_per_user_recipes",
+      "breakpoints": true
     }
   ]
 }

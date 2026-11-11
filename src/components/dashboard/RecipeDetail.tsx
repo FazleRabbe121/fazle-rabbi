@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { formatAmount, scaleIngredients } from "@/lib/measure";
 import type { Recipe } from "@/lib/recipes";
+import { DrinkPicture } from "@/components/recipes/DrinkPicture";
 
 export function RecipeDetail({ recipe, categoryName, imageUrl, onClose, onEdit, onDuplicate, onDelete, onFavorite, onPdf, onSaveScaled }: {
   recipe: Recipe | null; categoryName: string | null; imageUrl?: string | undefined; onClose: () => void; onEdit: () => void; onDuplicate: () => void;
@@ -25,7 +26,7 @@ export function RecipeDetail({ recipe, categoryName, imageUrl, onClose, onEdit, 
     <Dialog open onOpenChange={(o) => !o && onClose()}>
       <DialogContent className="max-h-[92vh] max-w-4xl overflow-y-auto border-primary/30 p-0">
         <div className="print-area grid md:grid-cols-[2fr_3fr]">
-          {imageUrl ? <img src={imageUrl} alt={recipe.name} className="h-64 w-full object-cover md:h-full" /> : <div className="hidden bg-muted md:block" />}
+          <div className="flex flex-col bg-muted">{imageUrl && <img src={imageUrl} alt={recipe.name} className="h-64 w-full object-cover md:h-80" />}<div className="grid flex-1 place-items-center p-6 text-primary"><DrinkPicture recipe={recipe} className="h-56 w-auto md:h-72" /></div></div>
           <div className="space-y-6 p-6 md:p-8">
             <div>
               <p className="eyebrow">FR · Recipe card</p>

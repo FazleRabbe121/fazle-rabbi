@@ -1,4 +1,4 @@
-export const RECIPE_UNITS = ["ml", "oz", "g", "dash", "tsp", "tbsp", "barspoon", "drop", "piece"] as const;
+export const RECIPE_UNITS = ["ml", "oz", "cl", "g", "dash", "tsp", "tbsp", "barspoon", "drop", "piece"] as const;
 export type RecipeUnit = (typeof RECIPE_UNITS)[number];
 export const CALC_UNITS = ["ml", "oz", "cl", "dash", "tsp", "tbsp", "barspoon", "drop", "g"] as const;
 export type CalcUnit = (typeof CALC_UNITS)[number];
@@ -15,6 +15,7 @@ export function convert(amount: number, from: CalcUnit, to: CalcUnit): number {
 const STEP: Record<RecipeUnit, (v: number) => number> = {
   ml: (v) => (v >= 5 ? 0.5 : 0.25),
   oz: () => 0.25,
+  cl: () => 0.25,
   g: (v) => (v >= 10 ? 1 : 0.5),
   dash: () => 1,
   drop: () => 1,

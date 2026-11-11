@@ -37,13 +37,14 @@ export const recipeInputSchema = z.object({
   selling_price: z.number().min(0).nullable(),
   notes: z.string().max(5000).nullable(),
   is_favorite: z.boolean(),
+  drink_color: z.string().regex(/^#[0-9a-fA-F]{6}$/).nullable().default(null),
 });
 export type RecipeInput = z.infer<typeof recipeInputSchema>;
 
 export const emptyRecipe = (): RecipeInput => ({
   name: "", category_id: null, image_path: null, ingredients: [{ name: "", amount: null, unit: "ml", note: "" }],
   steps: [""], glassware: "", ice_type: "", garnish: "", technique: "Shaken", prep_time_minutes: 3,
-  difficulty: "Easy", abv: null, flavor_tags: [], servings: 1, cost_per_serving: null, selling_price: null, notes: "", is_favorite: false,
+  difficulty: "Easy", abv: null, flavor_tags: [], servings: 1, cost_per_serving: null, selling_price: null, notes: "", is_favorite: false, drink_color: null,
 });
 
 const normalize = (r: RecipeRow): Recipe => ({ ...r, ingredients: (Array.isArray(r.ingredients) ? r.ingredients : []) as unknown as Ingredient[] });
@@ -53,7 +54,7 @@ export function toInput(r: Recipe): RecipeInput {
   return { ...rest, servings: Number(rest.servings), abv: rest.abv == null ? null : Number(rest.abv),
     cost_per_serving: rest.cost_per_serving == null ? null : Number(rest.cost_per_serving),
     selling_price: rest.selling_price == null ? null : Number(rest.selling_price),
-    difficulty: rest.difficulty as RecipeInput["difficulty"] } as RecipeInput;
+    difficulty: rest.difficulty as RecipeInput["difficulty"], drink_color: rest.drink_color ?? null } as RecipeInput;
 }
 
 export async function listCategories(): Promise<Category[]> {
@@ -121,7 +122,8 @@ export async function compressImage(file: File, max = 1600, quality = 0.82): Pro
 export async function uploadRecipeImage(file: File): Promise<string> {
   const blob = await compressImage(file);
   const { data: u } = await supabase.auth.getUser();
-  const path = `${u.user?.id ?? "owner"}/${crypto.randomUUID()}.jpg`;
+  if (!u.user) throw new Error("Please sign in again");
+  const path = `${u.user.id}/${crypto.randomUUID()}.jpg`;
   const { error } = await supabase.storage.from(BUCKET).upload(path, blob, { contentType: "image/jpeg", upsert: false });
   if (error) throw error;
   return path;

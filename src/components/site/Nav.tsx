@@ -34,7 +34,7 @@ export function Nav() {
           {NAV.map((n) => (
             <li key={n.id}><a href={`#${n.id}`} className="font-display text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-primary">{n.label}</a></li>
           ))}
-          <li><Link to="/login" className="font-display text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground hover:text-primary">Owner</Link></li>
+          <li><Link to="/dashboard" className="font-display text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground hover:text-primary">Recipes</Link></li>
         </ul>
         <button className="rounded-sm p-2 text-foreground lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
           {open ? <X /> : <Menu />}
@@ -46,7 +46,7 @@ export function Nav() {
             {NAV.map((n) => (
               <li key={n.id}><a onClick={() => setOpen(false)} href={`#${n.id}`} className="font-display text-sm uppercase tracking-[0.35em] text-foreground hover:text-primary">{n.label}</a></li>
             ))}
-            <li><Link to="/login" onClick={() => setOpen(false)} className="font-display text-sm uppercase tracking-[0.35em] text-muted-foreground">Owner login</Link></li>
+            <li><Link to="/dashboard" onClick={() => setOpen(false)} className="font-display text-sm uppercase tracking-[0.35em] text-muted-foreground">Recipes</Link></li>
           </ul>
         </div>
       )}
