@@ -72,7 +72,7 @@ function About() {
       <div className="grid items-center gap-12 lg:grid-cols-[5fr_7fr]">
         <div className="reveal relative">
           <div className="absolute -inset-3 border border-primary/30" aria-hidden="true" />
-          <img src={site.images.portrait} alt={`Portrait of ${site.name} behind the bar`} width={1024} height={1280} loading="lazy" className="relative aspect-[4/5] w-full object-cover" />
+          <img src={site.images.portrait} alt={`${site.name}, bartender, at Limassol Marina, Cyprus`} width={1088} height={1445} loading="lazy" className="relative aspect-[4/5] w-full object-cover object-[center_22%]" />
         </div>
         <div className="reveal space-y-6">
           {site.about.paragraphs.map((p) => <p key={p} className="text-lg leading-relaxed text-muted-foreground">{p}</p>)}
@@ -264,6 +264,14 @@ function Contact() {
     <Section id="contact" eyebrow="11 — Contact & recruitment enquiries" title="Let's create something exceptional" intro={c.availability} className="bg-navy-glow">
       <div className="grid gap-12 lg:grid-cols-[2fr_3fr]">
         <div className="reveal space-y-4">
+          <div className="mb-6 flex items-center gap-5 border border-primary/30 bg-card/60 p-4">
+            <img src={site.images.portrait} alt={`${site.name}, bartender, at Limassol Marina, Cyprus`} width={1088} height={1445} loading="lazy" className="h-28 w-[88px] shrink-0 object-cover object-[center_22%]" />
+            <div className="min-w-0">
+              <p className="font-display text-base uppercase tracking-[0.16em] text-foreground">{site.name}</p>
+              <p className="mt-1 font-serif text-sm italic text-gold-soft">{site.tagline}</p>
+              <p className="eyebrow mt-2 truncate">{site.location}</p>
+            </div>
+          </div>
           <Button asChild variant="goldOutline" size="lg" className="w-full justify-start"><a href={c.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin className="h-4 w-4" />LinkedIn profile</a></Button>
           <Button asChild variant="goldOutline" size="lg" className="w-full justify-start"><a href={c.whatsapp} target="_blank" rel="noopener noreferrer"><MessageCircle className="h-4 w-4" />Message on WhatsApp</a></Button>
           <Button asChild variant="goldOutline" size="lg" className="w-full justify-start"><a href={`mailto:${c.email}`}><Mail className="h-4 w-4" />{c.email}</a></Button>

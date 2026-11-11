@@ -46,7 +46,7 @@ Put your video at **`public/hero.mp4`** (H.264 MP4, ideally < 8 MB, 1920×1080, 
 
 ### CV and images
 - CV: replace `public/Fazle-Rabbi-CV.pdf` (keep the file name).
-- Photos: replace files in `src/assets/` keeping the same names, or change the imports at the top of `src/content/site.ts` (gallery items, signature cocktails, portrait, hero poster).
+- Photos: replace files in `src/assets/` keeping the same names, or change the imports at the top of `src/content/site.ts` (gallery items, signature cocktails, hero poster). The About/Contact portrait is hosted media: replace it with `lovable-assets create --file <your-photo> --filename fazle-rabbi-portrait.jpg > src/assets/fazle-rabbi-portrait.jpg.asset.json`.
 - SEO: set `siteUrl` in `site.ts`, and update the domain in `public/robots.txt` and `public/sitemap.xml`.
 
 ## Dashboard features

@@ -8,7 +8,7 @@ import cocktail3 from "@/assets/cocktail-3.jpg";
 import cocktail4 from "@/assets/cocktail-4.jpg";
 import coffee1 from "@/assets/coffee-1.jpg";
 import coffee2 from "@/assets/coffee-2.jpg";
-import portrait from "@/assets/portrait.jpg";
+import portraitAsset from "@/assets/fazle-rabbi-portrait.jpg.asset.json";
 import heroPoster from "@/assets/hero-poster.jpg";
 
 export const site = {
@@ -17,7 +17,7 @@ export const site = {
   tagline: "Crafting Exceptional Experiences, One Drink at a Time.",
   siteUrl: "https://example.com", // Set to your live domain (used for SEO canonical link)
   location: "Limassol Marina, Cyprus",
-  images: { heroPoster, portrait },
+  images: { heroPoster, portrait: portraitAsset.url },
 
   about: {
     heading: "Hospitality is a craft. Every guest, a story.",
