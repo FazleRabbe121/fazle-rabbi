@@ -16,7 +16,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-hero-overlay" />
       <div className="absolute inset-0 bg-navy-glow opacity-60" />
       <div className="relative z-10 mx-auto max-w-5xl px-5 pt-20 text-center">
-        <p className="eyebrow animate-rise mb-6">Est. behind the bar</p>
+        <p className="eyebrow animate-rise mb-6">{site.location}</p>
         <h1 className="animate-rise text-5xl font-light uppercase tracking-[0.18em] text-ivory sm:text-7xl md:text-8xl" style={{ animationDelay: "0.15s" }}>
           Fazle <span className="font-semibold text-gold-gradient">Rabbi</span>
         </h1>

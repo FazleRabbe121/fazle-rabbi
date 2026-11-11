@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
 
 const TITLE = "Fazle Rabbi — Professional Bartender, Barista & Mixologist";
-const DESC = "Portfolio of Fazle Rabbi: luxury bartending, signature cocktails, specialty coffee and latte art. Available for hospitality recruitment and private events.";
+const DESC = "Fazle Rabbi — Bartender, Barista and Mixologist based in Limassol Marina, Cyprus. 5+ years across bars, beach resorts and five-star hotels in Cyprus and Bangladesh: classic and signature cocktails, specialty coffee and latte art.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -31,7 +31,12 @@ export const Route = createFileRoute("/")({
       type: "application/ld+json",
       children: JSON.stringify({
         "@context": "https://schema.org", "@type": "Person", name: site.name, jobTitle: "Bartender, Barista and Mixologist",
-        description: DESC, url: site.siteUrl, email: `mailto:${site.contact.email}`, sameAs: [site.contact.linkedin, site.contact.instagram],
+        description: DESC, url: site.siteUrl, email: `mailto:${site.contact.email}`, telephone: site.contact.phone, sameAs: [site.contact.linkedin],
+        address: { "@type": "PostalAddress", addressLocality: "Limassol Marina", addressCountry: "CY" },
+        knowsLanguage: site.languages.map((l) => l.name),
+        alumniOf: { "@type": "EducationalOrganization", name: "Shariatpur Govt. College" },
+        hasCredential: site.certifications.map((c) => ({ "@type": "EducationalOccupationalCredential", name: c.name, recognizedBy: { "@type": "Organization", name: c.issuer } })),
+        worksFor: { "@type": "Organization", name: "Epsilon Restro Bar, Gazebo Mare" },
         knowsAbout: ["Mixology", "Cocktails", "Specialty coffee", "Latte art", "Bar operations", "Hospitality"],
       }),
     }],
@@ -111,11 +116,16 @@ function Expertise() {
   return (
     <>
       <Section id="skills" eyebrow="03 — Hospitality skills" title="Service, operations, leadership">
-        <ul className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
-          {site.hospitalitySkills.map((s) => (
-            <li key={s} className="reveal flex items-center gap-3 bg-background p-6 text-sm uppercase tracking-[0.12em] text-foreground"><Star className="h-4 w-4 text-primary" />{s}</li>
+        <div className="grid gap-6 lg:grid-cols-3">
+          {site.skillGroups.map((g) => (
+            <div key={g.title} className="reveal border border-border bg-card/60 p-7">
+              <h3 className="eyebrow mb-5">{g.title}</h3>
+              <ul className="space-y-3">
+                {g.skills.map((s) => <li key={s} className="flex items-start gap-3 text-sm text-foreground"><Star className="mt-0.5 h-4 w-4 shrink-0 text-primary" />{s}</li>)}
+              </ul>
+            </div>
           ))}
-        </ul>
+        </div>
       </Section>
       <div id="expertise">
         <ExpertiseBlock id="mixology" eyebrow="04 — Mixology & cocktail expertise" title="The art of balance" intro={site.mixology.intro} items={site.mixology.items} icon={<GlassWater className="h-5 w-5" />} />
@@ -143,7 +153,7 @@ function ExpertiseBlock({ id, eyebrow, title, intro, items, icon, navy }: { id: 
 
 function Signature() {
   return (
-    <Section id="signature" eyebrow="06 — Signature cocktails" title="Signature serves">
+    <Section id="signature" eyebrow="06 — Signature cocktails" title="Behind the bar" intro="Example serves from my work. Photos are illustrative.">
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {site.signatureCocktails.map((c) => (
           <article key={c.name} className="reveal group relative overflow-hidden">
@@ -229,7 +239,21 @@ function Certifications() {
             <p className="eyebrow mt-3">{c.year}</p>
           </li>
         ))}
-      </ul>
+        </ul>
+        <div className="reveal mt-10 grid gap-6 md:grid-cols-2">
+          <div className="border border-border bg-card/60 p-6">
+            <p className="eyebrow">Education</p>
+            <h3 className="mt-3 text-sm font-semibold uppercase tracking-[0.12em]">{site.education.name}</h3>
+            <p className="mt-2 text-sm text-muted-foreground">{site.education.school}</p>
+            <p className="eyebrow mt-3">{site.education.years}</p>
+          </div>
+          <div className="border border-border bg-card/60 p-6">
+            <p className="eyebrow">Languages</p>
+            <ul className="mt-3 space-y-2">
+              {site.languages.map((l) => <li key={l.name} className="flex justify-between text-sm"><span className="uppercase tracking-[0.12em]">{l.name}</span><span className="text-muted-foreground">{l.level}</span></li>)}
+            </ul>
+          </div>
+        </div>
     </Section>
   );
 }
@@ -256,7 +280,7 @@ function Footer() {
     <footer className="border-t border-border px-5 py-10 md:px-8">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 text-xs uppercase tracking-[0.2em] text-muted-foreground md:flex-row">
         <span className="flex items-center gap-3"><Monogram className="h-7 w-7 text-xs" />© {new Date().getFullYear()} {site.name}</span>
-        <span>Bartender · Barista · Mixologist</span>
+        <span>Bartender · Barista · Mixologist · {site.location}</span>
       </div>
     </footer>
   );

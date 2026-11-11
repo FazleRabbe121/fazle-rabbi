@@ -1,6 +1,5 @@
 /**
  * ALL EDITABLE WEBSITE CONTENT LIVES HERE.
- * Anything marked [PLACEHOLDER] should be replaced with real details.
  * Images: swap the files in src/assets (keep the same file names) or change the imports below.
  */
 import cocktail1 from "@/assets/cocktail-1.jpg";
@@ -16,60 +15,102 @@ export const site = {
   name: "Fazle Rabbi",
   title: "Professional Bartender | Barista | Mixologist",
   tagline: "Crafting Exceptional Experiences, One Drink at a Time.",
-  siteUrl: "https://example.com", // [PLACEHOLDER] your live domain (used for SEO tags)
-  location: "Mediterranean Region", // [PLACEHOLDER]
+  siteUrl: "https://example.com", // Set to your live domain (used for SEO canonical link)
+  location: "Limassol Marina, Cyprus",
   images: { heroPoster, portrait },
 
   about: {
     heading: "Hospitality is a craft. Every guest, a story.",
     paragraphs: [
-      "[PLACEHOLDER] I am a professional bartender, barista and mixologist with hands-on experience across luxury hotels, cocktail lounges and specialty coffee venues. My work blends classic technique with modern creativity.",
-      "[PLACEHOLDER] From high-volume service to bespoke cocktail menus, I focus on precision, consistency and genuine guest connection — the details that turn a drink into a memorable experience.",
+      "Customer-focused Bartender and Barista with over five years of hospitality experience across bars, restaurants, beach resorts and five-star hotels in Cyprus and Bangladesh.",
+      "Skilled in classic and signature cocktails, specialty coffee, professional latte art, espresso machine operation and calibration, stock control and bar hygiene. Committed to consistent quality, efficient service and memorable guest experiences.",
     ],
     stats: [
-      { value: "8+", label: "Years behind the bar" }, // [PLACEHOLDER]
-      { value: "300+", label: "Recipes developed" },
-      { value: "50k+", label: "Guests served" },
-      { value: "4", label: "Countries worked" },
+      { value: "5+", label: "Years in hospitality" },
+      { value: "6", label: "Venues" },
+      { value: "2", label: "Countries" },
+      { value: "5", label: "Trainings completed" },
     ],
   },
 
   experience: [
-    { period: "2022 — Present", role: "Head Bartender", venue: "[PLACEHOLDER] Luxury Hotel Bar, City", points: ["Lead a team of 6 bartenders across a 120-cover cocktail lounge", "Designed two seasonal menus, increasing beverage revenue by 18%", "Manage stock, par levels, ordering and cost control"] },
-    { period: "2019 — 2022", role: "Senior Bartender & Mixologist", venue: "[PLACEHOLDER] Cocktail Lounge, City", points: ["Signature cocktail creation and batching programme", "Trained junior staff in classic specs and speed service", "Guest-facing events, masterclasses and pairings"] },
-    { period: "2017 — 2019", role: "Barista", venue: "[PLACEHOLDER] Specialty Coffee House, City", points: ["Espresso calibration, milk texturing and latte art", "Daily grinder dial-in and equipment maintenance", "High-volume morning service with consistent quality"] },
+    { period: "June 2026 — Present", role: "Senior Bartender", venue: "Epsilon Restro Bar, Gazebo Mare — Limassol Marina, Cyprus", points: [
+      "Prepare classic and signature cocktails with consistent quality and presentation.",
+      "Handle high-volume service efficiently during busy beach and restaurant shifts.",
+      "Maintain fast, accurate service throughout demanding night shifts.",
+      "Keep the bar clean, organized and fully stocked throughout service.",
+      "Serve cocktails, wines, beers and spirits efficiently during busy restaurant service.",
+      "Coordinate with the floor team to ensure timely beverage service and smooth guest experiences.",
+    ] },
+    { period: "February 2026 — June 2026", role: "Senior Bartender", venue: "Flamingo Paradise Beach Hotel — Amphitrites Street, Protaras, Cyprus", points: [
+      "Provide quality service across Pool Bar, Lobby Bar and Restaurant Bar.",
+      "Prepare classic and signature cocktails to hotel standards.",
+      "Deliver efficient service during busy shifts and peak hours.",
+      "Maintain bar cleanliness, stock control and daily setup.",
+      "Ensure proper glassware, garnishes and presentation for every beverage served.",
+    ] },
+    { period: "May 2025 — January 2026", role: "Bartender", venue: "O'Neill's Irish Pub and Restaurant — Tombs of the Kings Road, Paphos, Cyprus", points: [
+      "Prepare and serve classic cocktails, draught beers, spirits and other beverages.",
+      "Operate beer taps and maintain proper pouring techniques and serving standards.",
+      "Deliver friendly and efficient service in a lively, high-volume pub environment.",
+      "Handle cash transactions, process payments and maintain billing accuracy.",
+      "Manage busy evening shifts, bar stock and daily preparation.",
+      "Maintain bar cleanliness, hygiene and a welcoming atmosphere for guests.",
+    ] },
+    { period: "October 2023 — April 2025", role: "Bartender", venue: "Sea Pearl Beach Resort and Spa — Jaliapalong, Cox's Bazar, Bangladesh", points: [
+      "Prepare and serve classic cocktails, spirits, wines and other beverages.",
+      "Provide professional service across Pool Bar, Lobby Bar and Restaurant Bar.",
+      "Maintain beverage quality, presentation and guest satisfaction.",
+      "Manage bar setup, stock control and daily operations.",
+      "Maintain cleanliness, hygiene and proper bar organization.",
+    ] },
+    { period: "April 2021 — October 2023", role: "Barista / Bartender", venue: "The Westin Dhaka (Marriott International) — Gulshan Avenue, Dhaka, Bangladesh", points: [
+      "Prepare espresso-based coffees, cappuccinos, lattes and other beverages.",
+      "Craft classic cocktails, signature drinks and mocktails to hotel standards.",
+      "Deliver professional beverage service with attention to quality and presentation.",
+      "Operate espresso machines and bar equipment efficiently.",
+      "Maintain beverage stock, bar setup and daily preparation.",
+      "Ensure cleanliness, hygiene and excellent guest satisfaction.",
+    ] },
+    { period: "February 2019 — April 2021", role: "Barista", venue: "Sugar Boulangerie and Pâtisserie — Kolatoli, Hotel Motel Zone, Cox's Bazar, Bangladesh", points: [
+      "Prepare espresso, cappuccino, latte, flat white and specialty coffee beverages.",
+      "Operate professional espresso machines and grinders with precision, adjusting grind size and extraction parameters.",
+      "Demonstrate knowledge of coffee beans, origins, roast profiles, grinding and brewing methods.",
+      "Prepare pour-over, French press, cold brew, iced coffee and other specialty brewing methods.",
+    ] },
   ],
 
-  hospitalitySkills: [
-    "Guest experience & upselling", "Bar operations & mise en place", "Stock control & inventory", "Cost & pour-cost management",
-    "Team leadership & training", "Health, safety & hygiene", "Responsible alcohol service", "Events & private functions",
+  skillGroups: [
+    { title: "Bar & Mixology", skills: ["Advanced mixology", "Cocktail, mocktail and beverage recipes", "Extensive drink recipe knowledge and menu execution", "Bar inventory control", "Responsible alcohol service"] },
+    { title: "Coffee & Barista", skills: ["Coffee beans and roasting", "Espresso machine calibration", "Manual and automated brewing", "Latte art and beverage presentation"] },
+    { title: "Service & Operations", skills: ["Friendly customer service", "Service speed and accuracy", "Hygiene and safety compliance", "POS system and cash handling", "Conflict resolution and guest relations", "Time management", "Teamwork and collaboration in fast-paced environments"] },
   ],
 
   mixology: {
-    intro: "A deep repertoire of classic and contemporary cocktails, built on balance, dilution and technique.",
+    intro: "Classic and signature cocktails prepared to hotel standards across pool, lobby, restaurant, pub and marina bars.",
     items: [
-      { title: "Classic Specs", text: "IBA classics, pre-Prohibition and tiki canon executed to precise specification." },
-      { title: "Technique", text: "Shaking, stirring, throwing, layering, muddling, fat-washing and clarification." },
-      { title: "In-house Prep", text: "Syrups, cordials, shrubs, infusions, purees and batched serves." },
-      { title: "Menu Development", text: "Concept, costing, naming and staff training for seasonal menus." },
+      { title: "Classic & Signature", text: "Classic and signature cocktails prepared with consistent quality and presentation." },
+      { title: "Mocktails & Beverages", text: "Mocktails, wines, beers, draught and spirits served efficiently during busy service." },
+      { title: "High-Volume Service", text: "Fast, accurate service through busy beach, restaurant, pub and night shifts." },
+      { title: "Bar Operations", text: "Bar setup, stock control, glassware, garnishes, cleanliness and hygiene." },
     ],
   },
 
   coffee: {
-    intro: "Specialty coffee preparation with the same precision as the cocktail bar.",
+    intro: "Specialty coffee preparation built on precise extraction and professional barista training.",
     items: [
-      { title: "Espresso Extraction", text: "Dose, yield and time calibration for balanced, repeatable shots." },
-      { title: "Milk & Latte Art", text: "Microfoam texturing; hearts, tulips, rosettas and swans." },
-      { title: "Brew Methods", text: "V60, Chemex, AeroPress, French press and cold brew." },
-      { title: "Coffee Cocktails", text: "Espresso Martini variations and coffee-led signature serves." },
+      { title: "Espresso & Calibration", text: "Espresso machine and grinder operation, adjusting grind size and extraction parameters." },
+      { title: "Milk & Latte Art", text: "Cappuccinos, lattes and flat whites finished with professional latte art." },
+      { title: "Brew Methods", text: "Pour-over, French press, cold brew, iced coffee and other specialty methods." },
+      { title: "Coffee Knowledge", text: "Coffee beans, origins, roast profiles, grinding and brewing methods." },
     ],
   },
 
   signatureCocktails: [
-    { name: "Golden Hour", spirit: "Gin", description: "[PLACEHOLDER] Dry gin, chamomile cordial, citrus oils, clear ice.", image: cocktail1 },
-    { name: "Island Ember", spirit: "Rum", description: "[PLACEHOLDER] Aged rum blend, pineapple, falernum, mint.", image: cocktail2 },
-    { name: "Smoked Heritage", spirit: "Whiskey", description: "[PLACEHOLDER] Bourbon, demerara, aromatic bitters, oak smoke.", image: cocktail3 },
-    { name: "Rose Riviera", spirit: "Gin", description: "[PLACEHOLDER] Pink gin, rose, lemon, egg-white silk.", image: cocktail4 },
+    { name: "Classic Cocktails", spirit: "Classics", description: "Classic cocktails prepared with consistent quality and presentation.", image: cocktail1 },
+    { name: "Signature Drinks", spirit: "Signature", description: "Signature cocktails crafted to hotel standards.", image: cocktail2 },
+    { name: "Spirits & Wines", spirit: "Bar service", description: "Cocktails, wines, beers and spirits served efficiently during busy service.", image: cocktail3 },
+    { name: "Mocktails", spirit: "Zero proof", description: "Mocktails and beverages with attention to quality and presentation.", image: cocktail4 },
   ],
 
   cocktailGallery: [
@@ -86,27 +127,34 @@ export const site = {
   ],
 
   highlights: [
-    { year: "2024", title: "[PLACEHOLDER] Regional Cocktail Competition — Finalist" },
-    { year: "2023", title: "[PLACEHOLDER] Launched award-nominated seasonal menu" },
-    { year: "2022", title: "[PLACEHOLDER] Promoted to Head Bartender" },
-    { year: "2021", title: "[PLACEHOLDER] Latte Art Throwdown — 1st Place" },
+    { year: "5+", title: "Years of hospitality experience across Cyprus and Bangladesh" },
+    { year: "2026", title: "Promoted to Senior Bartender in Cyprus — Flamingo Paradise Beach Hotel, then Epsilon Restro Bar, Gazebo Mare" },
+    { year: "5★", title: "Worked in five-star hotel environments including The Westin Dhaka (Marriott) and Sea Pearl Beach Resort and Spa" },
+    { year: "Pro", title: "Professional training with Monin Bangladesh and Northend Coffee Roasters" },
+    { year: "Bars", title: "Experience across pool, lobby, restaurant, pub and marina bar formats" },
   ],
 
   certifications: [
-    { name: "[PLACEHOLDER] WSET Level 2 Award in Spirits", issuer: "Wine & Spirit Education Trust", year: "2023" },
-    { name: "[PLACEHOLDER] SCA Barista Skills — Intermediate", issuer: "Specialty Coffee Association", year: "2021" },
-    { name: "[PLACEHOLDER] Food Safety & Hygiene Level 2", issuer: "Accredited Provider", year: "2022" },
-    { name: "[PLACEHOLDER] Responsible Service of Alcohol", issuer: "Accredited Provider", year: "2020" },
+    { name: "Basic Barista Training", issuer: "Northend Coffee Roasters", year: "June 2019" },
+    { name: "Basic Bartender Training", issuer: "Monin Bangladesh", year: "March 2021" },
+    { name: "In-House Bartending and Beverage Service Training", issuer: "The Westin Dhaka (Marriott)", year: "July 2022" },
+    { name: "Professional Barista Training", issuer: "Northend Coffee Roasters", year: "December 2022" },
+    { name: "Cocktail Craftsmanship and Mixology Training", issuer: "Sea Pearl Resort and Spa", year: "January 2024" },
+  ],
+
+  education: { name: "Higher Secondary Certificate (H.S.C.)", school: "Shariatpur Govt. College, Shariatpur Sadar, Bangladesh", years: "2019 — 2021" },
+  languages: [
+    { name: "Bangla", level: "Native" },
+    { name: "English", level: "Advanced" },
+    { name: "Hindi", level: "Upper-intermediate" },
   ],
 
   contact: {
-    email: "hello@example.com", // [PLACEHOLDER]
-    phone: "+00 000 000 000", // [PLACEHOLDER]
-    whatsapp: "https://wa.me/0000000000", // [PLACEHOLDER] international number, digits only
-    linkedin: "https://www.linkedin.com/in/your-profile", // [PLACEHOLDER]
-    instagram: "https://www.instagram.com/your-profile", // [PLACEHOLDER]
-    availability: "Open to full-time positions, seasonal contracts and private events.",
+    email: "Fazlerabbe905@gmail.com",
+    phone: "+357 95502363",
+    whatsapp: "https://wa.me/35795502363",
+    linkedin: "https://www.linkedin.com/in/fazle-rabbi-5785aa269",
+    availability: "Based in Limassol Marina, Cyprus. Open to bartending, barista and mixology roles, and private events.",
   },
 } as const;
-
 export const ENQUIRY_TYPES = ["Recruitment", "Event Booking", "Consulting", "Collaboration", "Other"] as const;
