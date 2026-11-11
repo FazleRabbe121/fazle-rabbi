@@ -1,0 +1,57 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - name: Build static site
+        env:
+          STATIC_SPA: "true"
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          # e.g. "/my-repo/" for https://user.github.io/my-repo/ — set as a repository variable
+          VITE_BASE_PATH: ${{ vars.VITE_BASE_PATH || '/' }}
+        run: bun run build
+      - name: Collect static output
+        run: |
+          OUT=""
+          for d in dist/client .output/public dist; do [ -d "$d" ] && OUT="$d" && break; done
+          [ -z "$OUT" ] && { echo "No build output found"; exit 1; }
+          mkdir -p site && cp -r "$OUT"/. site/
+          [ -f site/index.html ] || cp site/_shell.html site/index.html
+          # GitHub Pages SPA fallback: unknown paths (e.g. /dashboard, /reset-password) load the app shell
+          cp site/index.html site/404.html
+          touch site/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

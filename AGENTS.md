@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- All public-site copy lives in `src/content/site.ts`; components read from it — keeps owner edits in one file.
+- The app must stay deployable as a static SPA (GitHub Pages): no `createServerFn` or server routes; all data access goes through the browser client and RLS.
+- Admin access is the `user_roles` table + `has_role()`; recipes, categories, contact reads and the `recipe-images` bucket are admin-only via RLS — never gate data in the UI alone.
+- Public asset URLs go through `publicAsset()` in `src/lib/media.ts` so `VITE_BASE_PATH` sub-paths work.
+- Unit conversion, scaling and cost math live in `src/lib/measure.ts` with tests in `measure.test.ts`.

@@ -8,6 +8,8 @@ export const getRouter = () => {
 
   const router = createRouter({
     routeTree,
+    // Matches Vite's base (VITE_BASE_PATH) so the app works under a GitHub Pages sub-path.
+    basepath: (import.meta.env.BASE_URL || "/").replace(/\/$/, "") || "/",
     context: { queryClient },
     scrollRestoration: true,
     // Lets Query own freshness; set caching defaults on the QueryClient, not the router.
