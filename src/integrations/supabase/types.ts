@@ -40,6 +40,9 @@ export type Database = {
           created_at: string
           email: string
           enquiry_type: string
+          event_date: string | null
+          event_venue: string | null
+          guest_count: number | null
           id: string
           message: string
           name: string
@@ -50,6 +53,9 @@ export type Database = {
           created_at?: string
           email: string
           enquiry_type: string
+          event_date?: string | null
+          event_venue?: string | null
+          guest_count?: number | null
           id?: string
           message: string
           name: string
@@ -60,6 +66,9 @@ export type Database = {
           created_at?: string
           email?: string
           enquiry_type?: string
+          event_date?: string | null
+          event_venue?: string | null
+          guest_count?: number | null
           id?: string
           message?: string
           name?: string

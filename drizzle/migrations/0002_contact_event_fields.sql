@@ -1,0 +1,1 @@
+ALTER TABLE public.contact_messages ADD COLUMN IF NOT EXISTS event_date date, ADD COLUMN IF NOT EXISTS event_venue text, ADD COLUMN IF NOT EXISTS guest_count integer;

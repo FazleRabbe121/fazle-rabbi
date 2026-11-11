@@ -24,6 +24,7 @@ export const site = {
     paragraphs: [
       "Customer-focused Bartender and Barista with over five years of hospitality experience across bars, restaurants, beach resorts and five-star hotels in Cyprus and Bangladesh.",
       "Skilled in classic and signature cocktails, specialty coffee, professional latte art, espresso machine operation and calibration, stock control and bar hygiene. Committed to consistent quality, efficient service and memorable guest experiences.",
+      "Available for events and private bookings across Cyprus — from private parties and weddings to corporate, hotel, beach and marina events.",
     ],
     stats: [
       { value: "5+", label: "Years in hospitality" },
@@ -149,6 +150,36 @@ export const site = {
     { name: "Hindi", level: "Upper-intermediate" },
   ],
 
+  /**
+   * Rolling strip under the hero. To show a real logo, place the official file in public/logos/
+   * (e.g. public/logos/westin-dhaka.png) and set `logo: "/logos/westin-dhaka.png"`.
+   * Never hotlink logos from other websites or draw imitations — without a logo, an elegant text wordmark is shown.
+   */
+  venues: [
+    { name: "The Westin Dhaka (Marriott)" },
+    { name: "Sea Pearl Beach Resort and Spa" },
+    { name: "Flamingo Paradise Beach Hotel" },
+    { name: "O'Neill's Irish Pub and Restaurant" },
+    { name: "Epsilon Restro Bar, Gazebo Mare" },
+    { name: "Sugar Boulangerie and Pâtisserie" },
+  ] as { name: string; logo?: string }[],
+  trainedWith: [
+    { name: "Monin Bangladesh" },
+    { name: "Northend Coffee Roasters" },
+  ] as { name: string; logo?: string }[],
+
+  events: {
+    badge: "Available for events and private bookings in Cyprus",
+    heading: "Available for Events",
+    intro: "Hosting an event? I'd be glad to come and work it. I provide professional bartending and barista service for events across Cyprus, bringing hotel-standard cocktail craft, specialty coffee and warm, efficient guest service.",
+    cards: [
+      { title: "Bartender", text: "Classic and signature cocktails, mocktails, wines, beers and spirits — high-volume service from a clean, well-organised bar." },
+      { title: "Barista", text: "Espresso-based coffee, cappuccinos and lattes finished with latte art, plus cold brew and iced coffee." },
+      { title: "Bar and Service Standards", text: "Hygiene and safety compliance, responsible alcohol service, stock control and seamless teamwork with the floor team." },
+    ],
+    line: "Private parties, weddings, corporate and hotel events, beach and marina events. Share the date, venue and guest numbers, and I'll get back to you.",
+  },
+
   contact: {
     email: "Fazlerabbe905@gmail.com",
     phone: "+357 95502363",
@@ -157,4 +188,4 @@ export const site = {
     availability: "Based in Limassol Marina, Cyprus. Open to bartending, barista and mixology roles, and private events.",
   },
 } as const;
-export const ENQUIRY_TYPES = ["Recruitment", "Event Booking", "Consulting", "Collaboration", "Other"] as const;
+export const ENQUIRY_TYPES = ["Recruitment", "Event booking", "Consulting", "Collaboration", "Other"] as const;

@@ -3,6 +3,8 @@ import { useMemo, useState } from "react";
 import { Award, Coffee, GlassWater, Linkedin, Mail, MessageCircle, Phone, Sparkles, Star } from "lucide-react";
 import { site } from "@/content/site";
 import { Nav } from "@/components/site/Nav";
+import { Marquees } from "@/components/site/Marquee";
+import { BOOK_EVENT } from "@/components/site/ContactForm";
 import { Hero } from "@/components/site/Hero";
 import { Section } from "@/components/site/Section";
 import { Lightbox, type LightboxItem } from "@/components/site/Lightbox";
@@ -12,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
 
 const TITLE = "Fazle Rabbi — Professional Bartender, Barista & Mixologist";
-const DESC = "Fazle Rabbi — Bartender, Barista and Mixologist based in Limassol Marina, Cyprus. 5+ years across bars, beach resorts and five-star hotels in Cyprus and Bangladesh: classic and signature cocktails, specialty coffee and latte art.";
+const DESC = "Fazle Rabbi — Bartender, Barista and Mixologist based in Limassol Marina, Cyprus. 5+ years across bars, beach resorts and five-star hotels in Cyprus and Bangladesh: classic and signature cocktails, specialty coffee and latte art. Available for events and private bookings across Cyprus.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,7 +39,8 @@ export const Route = createFileRoute("/")({
         alumniOf: { "@type": "EducationalOrganization", name: "Shariatpur Govt. College" },
         hasCredential: site.certifications.map((c) => ({ "@type": "EducationalOccupationalCredential", name: c.name, recognizedBy: { "@type": "Organization", name: c.issuer } })),
         worksFor: { "@type": "Organization", name: "Epsilon Restro Bar, Gazebo Mare" },
-        knowsAbout: ["Mixology", "Cocktails", "Specialty coffee", "Latte art", "Bar operations", "Hospitality"],
+        knowsAbout: ["Mixology", "Cocktails", "Specialty coffee", "Latte art", "Bar operations", "Hospitality", "Event bartending", "Event barista service"],
+        makesOffer: { "@type": "Offer", areaServed: { "@type": "Country", name: "Cyprus" }, itemOffered: { "@type": "Service", name: "Event bartending and barista service", description: site.events.intro } },
       }),
     }],
   }),
@@ -52,7 +55,9 @@ function Home() {
       <Nav />
       <main>
         <Hero />
+        <Marquees />
         <About />
+        <Events />
         <Experience />
         <Expertise />
         <Signature />
@@ -63,6 +68,29 @@ function Home() {
       </main>
       <Footer />
     </>
+  );
+}
+
+function Events() {
+  const e = site.events;
+  return (
+    <Section id="events" eyebrow="Events & private bookings" title={e.heading} intro={e.intro} className="bg-navy-glow">
+      <div className="grid gap-6 md:grid-cols-3">
+        {e.cards.map((c, n) => (
+          <article key={c.title} className="reveal border border-primary/30 bg-card/60 p-7 transition-all duration-500 hover:-translate-y-1 hover:border-primary/70 hover:shadow-gold" style={{ transitionDelay: `${n * 60}ms` }}>
+            <span className="text-primary">{[<GlassWater key="a" className="h-6 w-6" />, <Coffee key="b" className="h-6 w-6" />, <Sparkles key="c" className="h-6 w-6" />][n]}</span>
+            <h3 className="mt-5 text-sm font-semibold uppercase tracking-[0.18em]">{c.title}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.text}</p>
+          </article>
+        ))}
+      </div>
+      <p className="reveal mx-auto mt-10 max-w-3xl text-center font-serif text-lg italic text-gold-soft">{e.line}</p>
+      <div className="reveal mt-8 flex flex-wrap justify-center gap-3">
+        <Button asChild variant="gold" size="lg"><a href="#contact" onClick={() => window.dispatchEvent(new Event(BOOK_EVENT))}>Book Me for Your Event</a></Button>
+        <Button asChild variant="goldOutline" size="lg"><a href={site.contact.whatsapp} target="_blank" rel="noopener noreferrer"><MessageCircle className="h-4 w-4" />WhatsApp Me</a></Button>
+        <Button asChild variant="goldOutline" size="lg"><a href={`mailto:${site.contact.email}`}><Mail className="h-4 w-4" />Email</a></Button>
+      </div>
+    </Section>
   );
 }
 

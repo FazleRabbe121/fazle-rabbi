@@ -5,6 +5,7 @@ import { Monogram } from "./Monogram";
 
 export const NAV = [
   { id: "about", label: "About" },
+  { id: "events", label: "Events" },
   { id: "experience", label: "Experience" },
   { id: "expertise", label: "Expertise" },
   { id: "signature", label: "Cocktails" },

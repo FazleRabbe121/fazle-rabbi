@@ -24,6 +24,9 @@ export function Hero() {
         <p className="animate-rise font-display text-xs uppercase tracking-[0.3em] text-gold-soft sm:text-sm md:tracking-[0.45em]" style={{ animationDelay: "0.4s" }}>
           Professional Bartender <span className="text-primary">|</span> Barista <span className="text-primary">|</span> Mixologist
         </p>
+        <p className="animate-rise mt-5 inline-flex items-center gap-2 rounded-full border border-primary/50 bg-background/40 px-4 py-1.5 text-[0.7rem] uppercase tracking-[0.2em] text-gold-soft backdrop-blur" style={{ animationDelay: "0.48s" }}>
+          <span className="h-1.5 w-1.5 rounded-full bg-primary motion-safe:animate-pulse" aria-hidden />{site.events.badge}
+        </p>
         <p className="animate-rise mx-auto mt-6 max-w-xl font-serif text-xl italic text-ivory/90 md:text-2xl" style={{ animationDelay: "0.55s" }}>
           “{site.tagline}”
         </p>
