@@ -4,7 +4,7 @@ import { Award, Coffee, GlassWater, Linkedin, Mail, MessageCircle, Phone, Sparkl
 import { site } from "@/content/site";
 import { publicAsset } from "@/lib/media";
 import { Nav } from "@/components/site/Nav";
-import { Marquees } from "@/components/site/Marquee";
+import { VenueLogos } from "@/components/site/VenueLogos";
 import { BOOK_EVENT } from "@/components/site/ContactForm";
 import { Hero } from "@/components/site/Hero";
 import { Section } from "@/components/site/Section";
@@ -56,7 +56,7 @@ function Home() {
       <Nav />
       <main>
         <Hero />
-        <Marquees />
+        <VenueLogos />
         <About />
         <Events />
         <Experience />

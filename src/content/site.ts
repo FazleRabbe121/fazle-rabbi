@@ -151,7 +151,7 @@ export const site = {
   ],
 
   /**
-   * Rolling strip under the hero. Real logo files live in public/logos/ (e.g. public/logos/gazebo-mare.jpg).
+   * Logo wall under the hero (static, no rolling). Real logo files live in public/logos/ (e.g. public/logos/gazebo-mare.jpg).
    * To add or swap one: drop the official file in that folder and set `logo: "/logos/file.jpg"`.
    * Without a logo file, an elegant text wordmark is shown there instead.
    * Never hotlink logos from other websites or draw imitations.

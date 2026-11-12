@@ -52,7 +52,7 @@ Put your video at **`public/hero.mp4`** (H.264 MP4, ideally < 8 MB, 1920×1080, 
 ### Venue logos
 Employer logos live in **`public/logos/`** and are referenced from `src/content/site.ts`:
 - `experience[].logos` — shown on each job in the Experience timeline (a job can carry more than one, e.g. Epsilon Restro Bar + Gazebo Mare).
-- `venues[].logo` — shown in the "Where I have worked" rolling strip; `trainedWith[].logo` in the second row.
+- `venues[].logo` — shown in the static "Where I have worked" logo wall; `trainedWith[].logo` in the row below it.
 
 To add one: drop the official file in `public/logos/` and set its path (e.g. `logo: "/logos/oneills-irish-pub.jpg"`). Without a file, an elegant gold text wordmark is shown instead — never hotlink logos from other websites or draw imitations.
 
