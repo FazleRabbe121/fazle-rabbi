@@ -35,7 +35,7 @@ export const site = {
   },
 
   experience: [
-    { period: "June 2026 — Present", role: "Senior Bartender", venue: "Epsilon Restro Bar, Gazebo Mare — Limassol Marina, Cyprus", points: [
+    { period: "June 2026 — Present", role: "Senior Bartender", venue: "Epsilon Restro Bar, Gazebo Mare — Limassol Marina, Cyprus", logos: ["/logos/epsilon-restro-bar.jpg", "/logos/gazebo-mare.jpg"], points: [
       "Prepare classic and signature cocktails with consistent quality and presentation.",
       "Handle high-volume service efficiently during busy beach and restaurant shifts.",
       "Maintain fast, accurate service throughout demanding night shifts.",
@@ -43,14 +43,14 @@ export const site = {
       "Serve cocktails, wines, beers and spirits efficiently during busy restaurant service.",
       "Coordinate with the floor team to ensure timely beverage service and smooth guest experiences.",
     ] },
-    { period: "February 2026 — June 2026", role: "Senior Bartender", venue: "Flamingo Paradise Beach Hotel — Amphitrites Street, Protaras, Cyprus", points: [
+    { period: "February 2026 — June 2026", role: "Senior Bartender", venue: "Flamingo Paradise Beach Hotel — Amphitrites Street, Protaras, Cyprus", logos: ["/logos/flamingo-paradise-beach-hotel.jpg"], points: [
       "Provide quality service across Pool Bar, Lobby Bar and Restaurant Bar.",
       "Prepare classic and signature cocktails to hotel standards.",
       "Deliver efficient service during busy shifts and peak hours.",
       "Maintain bar cleanliness, stock control and daily setup.",
       "Ensure proper glassware, garnishes and presentation for every beverage served.",
     ] },
-    { period: "May 2025 — January 2026", role: "Bartender", venue: "O'Neill's Irish Pub and Restaurant — Tombs of the Kings Road, Paphos, Cyprus", points: [
+    { period: "May 2025 — January 2026", role: "Bartender", venue: "O'Neill's Irish Pub and Restaurant — Tombs of the Kings Road, Paphos, Cyprus", logos: [], points: [
       "Prepare and serve classic cocktails, draught beers, spirits and other beverages.",
       "Operate beer taps and maintain proper pouring techniques and serving standards.",
       "Deliver friendly and efficient service in a lively, high-volume pub environment.",
@@ -58,14 +58,14 @@ export const site = {
       "Manage busy evening shifts, bar stock and daily preparation.",
       "Maintain bar cleanliness, hygiene and a welcoming atmosphere for guests.",
     ] },
-    { period: "October 2023 — April 2025", role: "Bartender", venue: "Sea Pearl Beach Resort and Spa — Jaliapalong, Cox's Bazar, Bangladesh", points: [
+    { period: "October 2023 — April 2025", role: "Bartender", venue: "Sea Pearl Beach Resort and Spa — Jaliapalong, Cox's Bazar, Bangladesh", logos: ["/logos/sea-pearl-beach-resort-spa.jpg"], points: [
       "Prepare and serve classic cocktails, spirits, wines and other beverages.",
       "Provide professional service across Pool Bar, Lobby Bar and Restaurant Bar.",
       "Maintain beverage quality, presentation and guest satisfaction.",
       "Manage bar setup, stock control and daily operations.",
       "Maintain cleanliness, hygiene and proper bar organization.",
     ] },
-    { period: "April 2021 — October 2023", role: "Barista / Bartender", venue: "The Westin Dhaka (Marriott International) — Gulshan Avenue, Dhaka, Bangladesh", points: [
+    { period: "April 2021 — October 2023", role: "Barista / Bartender", venue: "The Westin Dhaka (Marriott International) — Gulshan Avenue, Dhaka, Bangladesh", logos: ["/logos/the-westin-dhaka-marriott.jpg"], points: [
       "Prepare espresso-based coffees, cappuccinos, lattes and other beverages.",
       "Craft classic cocktails, signature drinks and mocktails to hotel standards.",
       "Deliver professional beverage service with attention to quality and presentation.",
@@ -73,13 +73,13 @@ export const site = {
       "Maintain beverage stock, bar setup and daily preparation.",
       "Ensure cleanliness, hygiene and excellent guest satisfaction.",
     ] },
-    { period: "February 2019 — April 2021", role: "Barista", venue: "Sugar Boulangerie and Pâtisserie — Kolatoli, Hotel Motel Zone, Cox's Bazar, Bangladesh", points: [
+    { period: "February 2019 — April 2021", role: "Barista", venue: "Sugar Boulangerie and Pâtisserie — Kolatoli, Hotel Motel Zone, Cox's Bazar, Bangladesh", logos: ["/logos/sugar-boulangerie-patisserie.jpg"], points: [
       "Prepare espresso, cappuccino, latte, flat white and specialty coffee beverages.",
       "Operate professional espresso machines and grinders with precision, adjusting grind size and extraction parameters.",
       "Demonstrate knowledge of coffee beans, origins, roast profiles, grinding and brewing methods.",
       "Prepare pour-over, French press, cold brew, iced coffee and other specialty brewing methods.",
     ] },
-  ],
+  ] as { period: string; role: string; venue: string; logos: string[]; points: string[] }[],
 
   skillGroups: [
     { title: "Bar & Mixology", skills: ["Advanced mixology", "Cocktail, mocktail and beverage recipes", "Extensive drink recipe knowledge and menu execution", "Bar inventory control", "Responsible alcohol service"] },
@@ -151,17 +151,18 @@ export const site = {
   ],
 
   /**
-   * Rolling strip under the hero. To show a real logo, place the official file in public/logos/
-   * (e.g. public/logos/westin-dhaka.png) and set `logo: "/logos/westin-dhaka.png"`.
-   * Never hotlink logos from other websites or draw imitations — without a logo, an elegant text wordmark is shown.
+   * Rolling strip under the hero. Real logo files live in public/logos/ (e.g. public/logos/gazebo-mare.jpg).
+   * To add or swap one: drop the official file in that folder and set `logo: "/logos/file.jpg"`.
+   * O'Neill's has no logo file yet, so an elegant text wordmark is shown there instead.
+   * Never hotlink logos from other websites or draw imitations.
    */
   venues: [
-    { name: "The Westin Dhaka (Marriott)" },
-    { name: "Sea Pearl Beach Resort and Spa" },
-    { name: "Flamingo Paradise Beach Hotel" },
+    { name: "The Westin Dhaka (Marriott)", logo: "/logos/the-westin-dhaka-marriott.jpg" },
+    { name: "Sea Pearl Beach Resort and Spa", logo: "/logos/sea-pearl-beach-resort-spa.jpg" },
+    { name: "Flamingo Paradise Beach Hotel", logo: "/logos/flamingo-paradise-beach-hotel.jpg" },
     { name: "O'Neill's Irish Pub and Restaurant" },
-    { name: "Epsilon Restro Bar, Gazebo Mare" },
-    { name: "Sugar Boulangerie and Pâtisserie" },
+    { name: "Epsilon Restro Bar, Gazebo Mare", logo: "/logos/epsilon-restro-bar.jpg" },
+    { name: "Sugar Boulangerie and Pâtisserie", logo: "/logos/sugar-boulangerie-patisserie.jpg" },
   ] as { name: string; logo?: string }[],
   trainedWith: [
     { name: "Monin Bangladesh" },

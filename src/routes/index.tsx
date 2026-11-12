@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Award, Coffee, GlassWater, Linkedin, Mail, MessageCircle, Phone, Sparkles, Star } from "lucide-react";
 import { site } from "@/content/site";
+import { publicAsset } from "@/lib/media";
 import { Nav } from "@/components/site/Nav";
 import { Marquees } from "@/components/site/Marquee";
 import { BOOK_EVENT } from "@/components/site/ContactForm";
@@ -127,8 +128,21 @@ function Experience() {
             <span className="absolute -left-[7px] top-1.5 h-3.5 w-3.5 rotate-45 border border-primary bg-background" aria-hidden="true" />
             <p className="eyebrow mb-2 md:mb-0">{e.period}</p>
             <div>
-              <h3 className="text-xl uppercase tracking-[0.12em] text-foreground">{e.role}</h3>
-              <p className="mt-1 font-serif italic text-gold-soft">{e.venue}</p>
+              <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-4">
+                <div>
+                  <h3 className="text-xl uppercase tracking-[0.12em] text-foreground">{e.role}</h3>
+                  <p className="mt-1 font-serif italic text-gold-soft">{e.venue}</p>
+                </div>
+                {e.logos.length > 0 && (
+                  <ul className="flex shrink-0 items-center gap-3">
+                    {e.logos.map((l) => (
+                      <li key={l}>
+                        <img src={publicAsset(l)} alt="" aria-hidden="true" loading="lazy" className="h-16 w-16 rounded-md border border-primary/30 bg-ivory object-contain p-2 shadow-gold" />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
               <ul className="mt-4 space-y-2 text-muted-foreground">
                 {e.points.map((p) => <li key={p} className="flex gap-3"><span className="mt-2.5 h-px w-4 shrink-0 bg-primary" />{p}</li>)}
               </ul>

@@ -5,7 +5,7 @@ type Item = { name: string; logo?: string };
 
 function Mark({ item }: { item: Item }) {
   return item.logo
-    ? <img src={publicAsset(item.logo)} alt={item.name} loading="lazy" className="h-10 w-auto object-contain opacity-70 grayscale transition duration-500 hover:opacity-100 hover:grayscale-0" />
+    ? <img src={publicAsset(item.logo)} alt={item.name} loading="lazy" className="h-12 w-12 shrink-0 rounded-md border border-primary/25 bg-ivory object-contain p-1.5 opacity-80 transition duration-500 hover:opacity-100" />
     : <span className="whitespace-nowrap font-display text-sm font-medium uppercase tracking-[0.3em] text-gold-gradient">{item.name}</span>;
 }
 

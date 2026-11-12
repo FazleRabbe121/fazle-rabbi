@@ -49,6 +49,13 @@ Put your video at **`public/hero.mp4`** (H.264 MP4, ideally < 8 MB, 1920×1080, 
 - Photos: replace files in `src/assets/` keeping the same names, or change the imports at the top of `src/content/site.ts` (gallery items, signature cocktails, hero poster). The About/Contact portrait is hosted media: replace it with `lovable-assets create --file <your-photo> --filename fazle-rabbi-portrait.jpg > src/assets/fazle-rabbi-portrait.jpg.asset.json`.
 - SEO: set `siteUrl` in `site.ts`, and update the domain in `public/robots.txt` and `public/sitemap.xml`.
 
+### Venue logos
+Employer logos live in **`public/logos/`** and are referenced from `src/content/site.ts`:
+- `experience[].logos` — shown on each job in the Experience timeline (a job can carry more than one, e.g. Epsilon Restro Bar + Gazebo Mare).
+- `venues[].logo` — shown in the "Where I have worked" rolling strip; `trainedWith[].logo` in the second row.
+
+To add one: drop the official file in `public/logos/` and set its path (e.g. `logo: "/logos/oneills-irish-pub.jpg"`). Without a file, an elegant gold text wordmark is shown instead — never hotlink logos from other websites or draw imitations. Still missing: O'Neill's Irish Pub has no logo file yet.
+
 ## Dashboard features
 Add / edit / duplicate / delete recipes, image upload (resized & compressed in the browser, stored privately and shown via signed URLs), search by name/ingredient/category, category filter, sort by name/date, favourites, detail view, print, branded PDF export, JSON/CSV backup and validated JSON import with duplicate handling, measurement converter, cost calculator (cost per serving, margin %, pour cost %), recipe scaling with “save as new”.
 
