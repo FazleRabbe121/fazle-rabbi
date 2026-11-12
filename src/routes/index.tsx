@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Award, Coffee, GlassWater, Linkedin, Mail, MessageCircle, Phone, Sparkles, Star } from "lucide-react";
 import { site } from "@/content/site";
-import { publicAsset } from "@/lib/media";
+import { BrandLogo } from "@/components/site/BrandLogo";
 import { Nav } from "@/components/site/Nav";
 import { VenueLogos } from "@/components/site/VenueLogos";
 import { BOOK_EVENT } from "@/components/site/ContactForm";
@@ -134,10 +134,10 @@ function Experience() {
                   <p className="mt-1 font-serif italic text-gold-soft">{e.venue}</p>
                 </div>
                 {e.logos.length > 0 && (
-                  <ul className="flex shrink-0 items-center gap-3">
+                  <ul className="flex shrink-0 items-center gap-2">
                     {e.logos.map((l) => (
                       <li key={l}>
-                        <img src={publicAsset(l)} alt="" aria-hidden="true" loading="lazy" className="h-16 w-16 rounded-md border border-primary/30 bg-ivory object-contain p-2 shadow-gold" />
+                        <BrandLogo src={l} alt="" size="timeline" />
                       </li>
                     ))}
                   </ul>

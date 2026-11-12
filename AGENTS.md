@@ -37,3 +37,4 @@ use the editor.
 - Drink pictures are pure code: rules in `src/lib/drink.ts` (tested), drawing in `src/components/recipes/DrinkPicture.tsx`.
 - Public asset URLs go through `publicAsset()` in `src/lib/media.ts` so `VITE_BASE_PATH` sub-paths work.
 - Unit conversion, scaling and cost math live in `src/lib/measure.ts` with tests in `measure.test.ts`.
+- Public venue, training and timeline logos use the shared BrandLogo frame and content-defined optical adjustments so original artwork stays contained and consistently presented.

@@ -156,6 +156,18 @@ export const site = {
    * Without a logo file, an elegant text wordmark is shown there instead.
    * Never hotlink logos from other websites or draw imitations.
    */
+  // Optical balance for the original square files: shrink dense circular marks,
+  // leaving wider wordmarks and artwork with built-in whitespace at full size.
+  // Shared by the venue, training and experience displays; never crop artwork.
+  logoPresentation: {
+    "/logos/epsilon-restro-bar.jpg": { scale: 0.78 },
+    "/logos/gazebo-mare.jpg": { scale: 1 },
+    "/logos/flamingo-paradise-beach-hotel.jpg": { scale: 1 },
+    "/logos/oneills-irish-pub.jpg": { scale: 1 },
+    "/logos/sea-pearl-beach-resort-spa.jpg": { scale: 1 },
+    "/logos/sugar-boulangerie-patisserie.jpg": { scale: 0.88 },
+    "/logos/the-westin-dhaka-marriott.jpg": { scale: 1 },
+  } as Record<string, { scale?: number }>,
   venues: [
     { name: "The Westin Dhaka (Marriott)", logo: "/logos/the-westin-dhaka-marriott.jpg" },
     { name: "Sea Pearl Beach Resort and Spa", logo: "/logos/sea-pearl-beach-resort-spa.jpg" },
