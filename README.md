@@ -54,7 +54,7 @@ Employer logos live in **`public/logos/`** and are referenced from `src/content/
 - `experience[].logos` — shown on each job in the Experience timeline (a job can carry more than one, e.g. Epsilon Restro Bar + Gazebo Mare).
 - `venues[].logo` — shown in the "Where I have worked" rolling strip; `trainedWith[].logo` in the second row.
 
-To add one: drop the official file in `public/logos/` and set its path (e.g. `logo: "/logos/oneills-irish-pub.jpg"`). Without a file, an elegant gold text wordmark is shown instead — never hotlink logos from other websites or draw imitations. Still missing: O'Neill's Irish Pub has no logo file yet.
+To add one: drop the official file in `public/logos/` and set its path (e.g. `logo: "/logos/oneills-irish-pub.jpg"`). Without a file, an elegant gold text wordmark is shown instead — never hotlink logos from other websites or draw imitations.
 
 ## Dashboard features
 Add / edit / duplicate / delete recipes, image upload (resized & compressed in the browser, stored privately and shown via signed URLs), search by name/ingredient/category, category filter, sort by name/date, favourites, detail view, print, branded PDF export, JSON/CSV backup and validated JSON import with duplicate handling, measurement converter, cost calculator (cost per serving, margin %, pour cost %), recipe scaling with “save as new”.

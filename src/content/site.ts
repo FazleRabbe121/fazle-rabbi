@@ -50,7 +50,7 @@ export const site = {
       "Maintain bar cleanliness, stock control and daily setup.",
       "Ensure proper glassware, garnishes and presentation for every beverage served.",
     ] },
-    { period: "May 2025 — January 2026", role: "Bartender", venue: "O'Neill's Irish Pub and Restaurant — Tombs of the Kings Road, Paphos, Cyprus", logos: [], points: [
+    { period: "May 2025 — January 2026", role: "Bartender", venue: "O'Neill's Irish Pub and Restaurant — Tombs of the Kings Road, Paphos, Cyprus", logos: ["/logos/oneills-irish-pub.jpg"], points: [
       "Prepare and serve classic cocktails, draught beers, spirits and other beverages.",
       "Operate beer taps and maintain proper pouring techniques and serving standards.",
       "Deliver friendly and efficient service in a lively, high-volume pub environment.",
@@ -153,14 +153,14 @@ export const site = {
   /**
    * Rolling strip under the hero. Real logo files live in public/logos/ (e.g. public/logos/gazebo-mare.jpg).
    * To add or swap one: drop the official file in that folder and set `logo: "/logos/file.jpg"`.
-   * O'Neill's has no logo file yet, so an elegant text wordmark is shown there instead.
+   * Without a logo file, an elegant text wordmark is shown there instead.
    * Never hotlink logos from other websites or draw imitations.
    */
   venues: [
     { name: "The Westin Dhaka (Marriott)", logo: "/logos/the-westin-dhaka-marriott.jpg" },
     { name: "Sea Pearl Beach Resort and Spa", logo: "/logos/sea-pearl-beach-resort-spa.jpg" },
     { name: "Flamingo Paradise Beach Hotel", logo: "/logos/flamingo-paradise-beach-hotel.jpg" },
-    { name: "O'Neill's Irish Pub and Restaurant" },
+    { name: "O'Neill's Irish Pub and Restaurant", logo: "/logos/oneills-irish-pub.jpg" },
     { name: "Epsilon Restro Bar, Gazebo Mare", logo: "/logos/epsilon-restro-bar.jpg" },
     { name: "Sugar Boulangerie and Pâtisserie", logo: "/logos/sugar-boulangerie-patisserie.jpg" },
   ] as { name: string; logo?: string }[],
