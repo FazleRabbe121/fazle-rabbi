@@ -22,6 +22,13 @@
       "when": 1794440498260,
       "tag": "0002_contact_event_fields",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1794474336268,
+      "tag": "0003_tighten_categories_contact_policies",
+      "breakpoints": true
     }
   ]
 }
